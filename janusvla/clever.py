@@ -1,3 +1,11 @@
+"""
+file: clever.py
+author: 汪子策
+date: 2025-4-14
+version: 1.0
+license: ARR
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 from itertools import product
 
 # 遍历所有可能的答案组合

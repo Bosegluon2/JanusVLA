@@ -1,3 +1,12 @@
+"""
+name : action_head.py
+description : ActionHead 模块。核心代码在于 Transformer 编码器和全连接层的组合。
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : ARR
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 import torch
 from torch import nn
 class ActionHead(nn.Module):

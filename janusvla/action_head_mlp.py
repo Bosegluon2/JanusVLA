@@ -1,3 +1,12 @@
+"""
+name : action_head_mlp.py
+description : ActionHeadMLP 模块。
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : ARR
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 import torch
 from torch import nn
 class ActionHeadMLP(nn.Module):

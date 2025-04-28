@@ -1,3 +1,13 @@
+
+"""
+name : process.py
+description : 处理数据集，提取隐藏状态和历史步骤，并保存为 PyTorch 张量文件。
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : All rights reserved.
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 import torch
 from torch import nn
 from PIL import Image

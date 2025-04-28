@@ -1,3 +1,12 @@
+"""
+name : example_run_mlp.py
+description : 使用 ActionHeadMLP 模型进行推理的示例代码。
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : ARR
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 import torch
 from torch import nn
 from PIL import Image

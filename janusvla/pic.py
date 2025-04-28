@@ -1,4 +1,11 @@
-
+"""
+name : pic.py
+description : modified from origin janus repository, to test the action head.
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : MIT License
+"""
 import torch
 from torch import nn
 from transformers import AutoModelForCausalLM

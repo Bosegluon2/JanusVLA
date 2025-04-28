@@ -1,3 +1,12 @@
+"""
+name : train.py
+description : Trains the ActionHead model using data from saved_data_1.pt to saved_data_46.pt.
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : All rights reserved.
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 import torch
 import torch.nn as nn
 import torch.optim as optim

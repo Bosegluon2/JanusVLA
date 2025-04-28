@@ -1,3 +1,14 @@
+"""
+name : build_dataset.py
+description : Preprocess the dataset. 
+note: 这段代码可读性很差，这是因为汪子策故意的。
+tips: 这段代码需要两个不同的环境来运行。
+author : 汪子策
+date : 2025-4-14
+version : 1.0
+license : ARR
+Copyright (c) 2025 汪子策. All rights reserved.
+"""
 # -*- coding: utf-8 -*-
 # import tensorflow_datasets as tfds
 import torch
@@ -7,7 +18,6 @@ import os
 # import tiktoken
 # import os
 # os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
-# # 若使用此段代码，使用3.8因为3.12下载不了数据集
 # # 加载数据集
 # (ds_train,), ds_info = tfds.load(
 #     'ucsd_pick_and_place_dataset_converted_externally_to_rlds',
@@ -97,68 +107,68 @@ import os
 #     torch.save(chunk, save_path)
 # print(f"数据集已按每 {chunk_size} 个 sequence 拆分保存到 {save_dir}")
 
-save_dir = 'ucsd_kitchen_dataset_split_word'
-# 从多个文件加载数据集
-class SplitUCSDKitchenDataset(Dataset):
-    def __init__(self, save_dir):
-        # self.save_dir = save_dir
-        # self.file_list = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if f.endswith('.pt')]
-        # self.data = []
-        # for file_path in self.file_list:
-        #     self.data.extend(torch.load(file_path))
-        self.save_dir = save_dir
-        self.file_list = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if f.endswith('.pt')]
-        self.data = []
-        for file_path in self.file_list:
-            sequences = torch.load(file_path,weights_only=True)
-            for sequence in sequences:
-                if len(sequence) == 3:
-                    instruct_sequence, state_sequence, image_sequence = sequence
-                    # 确保元素是 tensor 类型，如果不是则进行转换
-                    # if not isinstance(instruct_sequence, torch.Tensor):
-                    #    instruct_sequence = torch.tensor(instruct_sequence)
-                    if not isinstance(state_sequence, torch.Tensor):
-                        state_sequence = torch.tensor(state_sequence)
-                    if not isinstance(image_sequence, torch.Tensor):
-                        image_sequence = torch.tensor(image_sequence)
-                    self.data.append((instruct_sequence, state_sequence, image_sequence))
-                else:
-                    print(f"Unexpected sequence length: {len(sequence)}")
-    def __len__(self):
-        return len(self.data)
+# save_dir = 'ucsd_kitchen_dataset_split_word'
+# # 从多个文件加载数据集
+# class SplitUCSDKitchenDataset(Dataset):
+#     def __init__(self, save_dir):
+#         # self.save_dir = save_dir
+#         # self.file_list = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if f.endswith('.pt')]
+#         # self.data = []
+#         # for file_path in self.file_list:
+#         #     self.data.extend(torch.load(file_path))
+#         self.save_dir = save_dir
+#         self.file_list = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if f.endswith('.pt')]
+#         self.data = []
+#         for file_path in self.file_list:
+#             sequences = torch.load(file_path,weights_only=True)
+#             for sequence in sequences:
+#                 if len(sequence) == 3:
+#                     instruct_sequence, state_sequence, image_sequence = sequence
+#                     # 确保元素是 tensor 类型，如果不是则进行转换
+#                     # if not isinstance(instruct_sequence, torch.Tensor):
+#                     #    instruct_sequence = torch.tensor(instruct_sequence)
+#                     if not isinstance(state_sequence, torch.Tensor):
+#                         state_sequence = torch.tensor(state_sequence)
+#                     if not isinstance(image_sequence, torch.Tensor):
+#                         image_sequence = torch.tensor(image_sequence)
+#                     self.data.append((instruct_sequence, state_sequence, image_sequence))
+#                 else:
+#                     print(f"Unexpected sequence length: {len(sequence)}")
+#     def __len__(self):
+#         return len(self.data)
 
-    def __getitem__(self, idx):
-        return self.data[idx]
+#     def __getitem__(self, idx):
+#         return self.data[idx]
 
-if __name__ == '__main__':
-    torch.set_printoptions(sci_mode=False)
-    import matplotlib
-    import matplotlib.pyplot as plt
+# if __name__ == '__main__':
+#     torch.set_printoptions(sci_mode=False)
+#     import matplotlib
+#     import matplotlib.pyplot as plt
 
 
-# 创建基于拆分数据的数据集和数据加载器
-    loaded_dataset = SplitUCSDKitchenDataset(save_dir)
-    print(f"数据集中的序列数量: {len(loaded_dataset)}")
-    batch_size = 1
-    dataloader = DataLoader(loaded_dataset, batch_size=batch_size, shuffle=True)
-    count = 0
-    for sequence in dataloader:
+# # 创建基于拆分数据的数据集和数据加载器
+#     loaded_dataset = SplitUCSDKitchenDataset(save_dir)
+#     print(f"数据集中的序列数量: {len(loaded_dataset)}")
+#     batch_size = 1
+#     dataloader = DataLoader(loaded_dataset, batch_size=batch_size, shuffle=True)
+#     count = 0
+#     for sequence in dataloader:
         
-        print(sequence[0][0], sequence[1].shape, sequence[2].shape)
+#         print(sequence[0][0], sequence[1].shape, sequence[2].shape)
 
-        from PIL import Image
-        from torchvision.transforms import ToPILImage
+#         from PIL import Image
+#         from torchvision.transforms import ToPILImage
         
-        to_pil = ToPILImage()
+#         to_pil = ToPILImage()
 
-        tensor=sequence[2][0][1]
-        print(tensor)
+#         tensor=sequence[2][0][1]
+#         print(tensor)
 
-        tensor = tensor.permute(1, 2, 0)
+#         tensor = tensor.permute(1, 2, 0)
         
 
-        np_array = tensor.numpy()
-        print(np_array)
-        image = Image.fromarray(np_array)
+#         np_array = tensor.numpy()
+#         print(np_array)
+#         image = Image.fromarray(np_array)
         
-        image.save("test.png")
+#         image.save("test.png")
